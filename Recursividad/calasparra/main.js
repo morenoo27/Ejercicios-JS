@@ -16,7 +16,7 @@ document.getElementById("enunciado").innerHTML += Calasparra(altura, piso);
  * @param {*} altura Cantidad de pisos que tendra la piramide
  * @param {*} piso Piso actual
  */
-function Calasparra(altura, piso) {
+function Calasparra(altura) {
 
     //si se inicia el programa, la primera vez siempre sera 1, por lo tanto lo escribimos manualmente
     //ya que no supone esfuerzo controlar un caso concreto
@@ -24,7 +24,7 @@ function Calasparra(altura, piso) {
 
         solucionFinal += "1<br/>"
         piso++;
-        Calasparra(altura, piso);
+        Calasparra(altura);
     } else {
 
         /**
