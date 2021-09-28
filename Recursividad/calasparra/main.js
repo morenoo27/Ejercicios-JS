@@ -44,7 +44,9 @@ function Calasparra(altura) {
 }
 
 /**
- * 
+ * Metodo que combina la generacion de dos escaleras, 
+ * una ascendente y descentende para crear la piramide
+ * de calasparra
  * @param {any} tope Valor maximo de la priamide
  * @returns Texto con la escalera completa
  */
@@ -54,7 +56,7 @@ function piramide(tope) {
 }
 
 /**
- * 
+ * Metodo que genera una escalera ascendente hasta el valor maximo, sin contar con el
  * @param {any} tope Valor maximo de la priamide
  * @returns Texto con la escalera ascendente de la piramide
  */
@@ -70,7 +72,7 @@ function ascender(tope) {
 }
 
 /**
- * 
+ * Metodo que genera una escalera descendente hasta el valor maximo, empezando por el tope
  * @param {any} tope Valor maximo de la escalera
  * @returns  Texto con la Escalera descendente, y la cuspide.
  */
