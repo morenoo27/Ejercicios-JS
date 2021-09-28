@@ -13,8 +13,8 @@ document.getElementById("enunciado").innerHTML += Calasparra(altura, piso);
 
 /**
  * Metodo que realiza la sucesion de Calasparra, por medio de recursividad
- * @param {*} altura Cantidad de pisos que tendra la piramide
- * @param {*} piso Piso actual
+ * @param {Number} altura Cantidad de pisos que tendra la piramide
+ * @param {Number} piso Piso actual
  */
 function Calasparra(altura) {
 
@@ -47,7 +47,7 @@ function Calasparra(altura) {
  * Metodo que combina la generacion de dos escaleras, 
  * una ascendente y descentende para crear la piramide
  * de calasparra
- * @param {any} tope Valor maximo de la priamide
+ * @param {Number} tope Valor maximo de la priamide
  * @returns Texto con la escalera completa
  */
 function piramide(tope) {
@@ -57,7 +57,7 @@ function piramide(tope) {
 
 /**
  * Metodo que genera una escalera ascendente hasta el valor maximo, sin contar con el
- * @param {any} tope Valor maximo de la priamide
+ * @param {Number} tope Valor maximo de la priamide
  * @returns Texto con la escalera ascendente de la piramide
  */
 function ascender(tope) {
@@ -73,7 +73,7 @@ function ascender(tope) {
 
 /**
  * Metodo que genera una escalera descendente hasta el valor maximo, empezando por el tope
- * @param {any} tope Valor maximo de la escalera
+ * @param {Number} tope Valor maximo de la escalera
  * @returns  Texto con la Escalera descendente, y la cuspide.
  */
 function descender(tope) {

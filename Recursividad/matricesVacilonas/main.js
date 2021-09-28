@@ -12,7 +12,7 @@ function matriz() {
 /**
  * Metodo que genera una matriz vacilona,
  * del grado que queramos pasar por parametro
- * @param {*} grado Grado de la matriz
+ * @param {Number} grado Grado de la matriz
  * @returns Texto, formateado, con la matriz vacilona
  */
 function crearMatriz(grado) {
@@ -38,8 +38,8 @@ function tab() { return "<pre style='display:inline'>&#09;</pre>" }
 
 /**
  * Metodo que genera el valor correspondiente a su posicion en la matriz vacilona
- * @param {*} fila Posicion "fila" de la matriz
- * @param {*} columna Posicion "columna" de la matriz
+ * @param {Number} fila Posicion "fila" de la matriz
+ * @param {Number} columna Posicion "columna" de la matriz
  * @returns Valor que corresponde en la matriz vacilona
  */
 function posicion(fila, columna) {
