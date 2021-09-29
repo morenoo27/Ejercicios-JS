@@ -4,13 +4,19 @@
 var arr1 = [9, 9, 8, 1, 2, 3, 3, 4, 5, 6, 7, 8, 9];
 var arr2 = [2, 3, 4, 5, 6];
 
+//variable GLOBAL
+/*Si se mete dentro de la funcion(version anterior)
+con el aray vacio, lo que devuelve sera la primera iteracion del bucle,
+no el resultado final del mismo*/
+var noRepetidos = [];
+
 var contArray = 0;
 
 document.getElementById("array1").innerHTML = arr1;
 document.getElementById("array2").innerHTML = arr2;
 
 function buscar() {
-    document.getElementById("resultado").innerHTML += buscarNoRepetidos(arr1, arr2, contArray);
+    document.getElementById("resultado").innerHTML = buscarNoRepetidos(arr1, arr2, contArray);
 }
 
 /**
@@ -23,7 +29,6 @@ function buscar() {
  */
 function buscarNoRepetidos(arrReferencia, arrAComparar, indice) {
 
-    var noRepetidos = [];
     let seRepite = false; //false => no se repite | true => se repite
 
     //recorremos el segundo array para ver si
