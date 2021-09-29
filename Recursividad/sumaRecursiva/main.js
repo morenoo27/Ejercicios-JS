@@ -57,4 +57,4 @@ function array() {
  * @param {Number} max Numero minimo para generar
  * @returns Numero aleatorio entre dos rangos (excluyendo el maximo)
  */
-function generarNumero(min,max) {return Math.floor(Math.random() * (max - min)) + min;}
+function generarNumero(min,max) {return Math.floor(Math.random() * (max - min) + min);}
