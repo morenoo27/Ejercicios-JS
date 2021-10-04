@@ -16,24 +16,14 @@
         realiza el programa para que genere 10, 20 o todas
         las minas que se puedan instalar.
     </p>
-    <script>
-        var arr = [[" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "]
 
-        ];
-        function generateRandomInt(min, max) {
-            return Math.floor((Math.random() * (max - min)) + min);
-        }
+    <select name="numeros" id="repeticiones">
+        <option value="10" selected>10 repeticiones</option>
+        <option value="20">20 repeticiones</option>
+        <option value="posibles">Todas las posibles</option>
+    </select>
+    <input type="button" value="Generar bombas" onclick="activarMinas()">
 
-        /*COLOCA AQUÍ TU CÓDIGO*/
-    </script>
     <script src="main.js"></script>
 </body>
 
