@@ -70,24 +70,26 @@ function infectar(x, y) {
   //extraemos la especie
   let especie = document.getElementById(x + "," + y).value;
 
-  //eliminamos el sujeto
-  document.getElementById(x + "," + y).value = "";
+  if (especie != "  ") {
+    //eliminamos el sujeto
+    document.getElementById(x + "," + y).value = "  ";
 
-  let infectUp = comprobarArriba(x, y, especie);
-  if (infectUp) {
-    infectar(x - 1, y);
-  }
-  let infecAbajo = comprobarAbajo(x, y, especie);
-  if (infecAbajo) {
-    infectar(x + 1, y);
-  }
-  let infectDcha = comprobarDcha(x, y, especie);
-  if (infectDcha) {
-    infectar(x, y + 1);
-  }
-  let infectIzda = comprobarIzda(x, y, especie);
-  if (infectIzda) {
-    infectar(x, y - 1);
+    let infectUp = comprobarArriba(x, y, especie);
+    if (infectUp) {
+      infectar(x - 1, y);
+    }
+    let infecAbajo = comprobarAbajo(x, y, especie);
+    if (infecAbajo) {
+      infectar(x + 1, y);
+    }
+    let infectDcha = comprobarDcha(x, y, especie);
+    if (infectDcha) {
+      infectar(x, y + 1);
+    }
+    let infectIzda = comprobarIzda(x, y, especie);
+    if (infectIzda) {
+      infectar(x, y - 1);
+    }
   }
 }
 
@@ -105,7 +107,7 @@ function comprobarArriba(fila, columna, especie) {
   let valido = true;
 
   //control para ver si se sale de la "matriz"
-  if (!(fila == 0)) {
+  if (fila != 0) {
     let mismaEspecie =
       especie == document.getElementById(fila - 1 + "," + columna).value; //comparacion de especies
     if (mismaEspecie) {
@@ -129,10 +131,7 @@ function comprobarArriba(fila, columna, especie) {
 function comprobarAbajo(fila, columna, especie) {
   let valido = true;
 
-  let mismaEspecie =
-    especie == document.getElementById(fila + 1 + "," + columna).value;
-
-  if (!(fila == GRADO)) {
+  if (fila != GRADO) {
     let mismaEspecie =
       especie == document.getElementById(fila + 1 + "," + columna).value;
     if (mismaEspecie) {
@@ -156,7 +155,7 @@ function comprobarAbajo(fila, columna, especie) {
 function comprobarDcha(fila, columna, especie) {
   let valido = true;
 
-  if (!(columna == GRADO)) {
+  if (columna != GRADO) {
     let mismaEspecie =
       especie == document.getElementById(fila + "," + (columna + 1)).value;
     if (mismaEspecie) {
@@ -180,7 +179,7 @@ function comprobarDcha(fila, columna, especie) {
 function comprobarIzda(fila, columna, especie) {
   let valido = true;
 
-  if (!(columna == 0)) {
+  if (columna != 0) {
     let mismaEspecie =
       especie == document.getElementById(fila + "," + (columna - 1)).value;
     if (mismaEspecie) {
