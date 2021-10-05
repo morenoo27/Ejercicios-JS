@@ -1,8 +1,8 @@
 const FILAS = 9
 const COLUMNAS = 13
-var contadorRepeticiones = 0;
+var contadorRepeticiones;
 
-var minas = generarArray(FILAS, COLUMNAS);
+var minas;
 
 function generarArray(filas, columnas) {
 
@@ -22,6 +22,9 @@ function generarArray(filas, columnas) {
  * Metodo que acciona el programa entero
  */
 function activarMinas() {
+
+    contadorRepeticiones = 0;
+    minas = generarArray(FILAS, COLUMNAS);
 
     //colocamos la primera mina
     let fila = generarCoordenada(FILAS, 0);
