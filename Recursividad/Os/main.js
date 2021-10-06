@@ -1,6 +1,7 @@
 //VARIABLES NECESARIAS
 var Os;
 var base = 0;
+var contadorO = 0;
 
 //instancia de listeners
 document.getElementById("genSec").addEventListener("click", crearSecuencia, false);
@@ -46,39 +47,32 @@ function crearSecuencia() {
 
 function buscar() {
 
-    let inicio = buscarMasLarga(base, base)
+    let inicio = buscarMasLarga(generarOs(), 0);
     let longitud = obtenerLongitud(inicio);
 
     document.getElementById("Respuesta").innerHTML = `La secuencia mas larda es de ${longitud} y empieza en la posicion ${inicio}`;
 }
 
-function buscarMasLarga(base, length) {
+function buscarMasLarga(array, index) {
 
-    let inicio, longitud;
-    let masLarga = false;
-
-    for (let i = base; i < Os.length; i++) {
-
-        if (i == Os.length - 1) {
-            masLarga = true;
-            break;
+    //si esta aun en el array
+    if (index < array.length) {
+        
+        //miramos si la posicion es una O
+        if (array[inicio] == "0") {
+            //sumamos una O al contador
+            contadorO++
+            //si el contador es mayor a la anterior longitud, se actualiza la longitud
+            if (contadorO > longitud) {
+                longitud = contadorO;
+            }
+        } else {
+            //sino ponemos el contador a 0
+            contadorO = 0;
         }
-        if (Os[i] == "O") {
 
-            inicio = i;
-            longitud = obtenerLongitud(inicio);
-            break;
-        }
-    }
-
-    if (longitud > length) {
-        masLarga = true;
-    }
-
-    if (!masLarga) {
-        buscarMasLarga(inicio + 1, longitud);
-    } else {
-        return inicio;
+        //miramos en la siguiente posicion
+        buscarMasLarga(array, index + 1);
     }
 }
 

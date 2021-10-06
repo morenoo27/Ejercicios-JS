@@ -10,19 +10,13 @@ var numeroAlReves = [];
  */
 function numeroALetras(numero) {
 
-    //si es mayor que dive, se puede dividir
+    //si es mayor que divide, si se puede dividir
     if (numero >= 10) {
         //metemos la conversion del resto de dividir el numero enre 10
         numeroAlReves.push(Math.floor(numero % 10));
 
         //repetimos el proceso con el nuevo numero
         numeroALetras(Math.floor(numero / 10));
-    }
-
-    //CONTROLAR 0
-    if (numero == 0){
-
-
     }
 
     //para que SOLO se meta el numero final (la ultima unidad depuramos si
@@ -33,8 +27,8 @@ function numeroALetras(numero) {
         numeroAlReves.push(numero);
     }
 
-    //lo devolvemos del reves, ya que es el orden en el que estaba
-    return numeroAlReves.reverse()
+    //lo devolvemos del reves, ya que es el orden en el que es taba
+    return numeroAlReves;
 }
 
 /**
@@ -45,11 +39,12 @@ function numeroALetras(numero) {
 function conversion(numeroAConvertir) {
 
     let letras = ["cero", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve"];
-    let numeroConvertido = ""
+    let numeroConvertido = "";
 
-    numeroAConvertir.forEach(numero => {
-        numeroConvertido += letras[numero] + " "
-    });
+    for (let index = numeroAConvertir.length -1; 0 <= index; index--) {
+        
+        numeroConvertido += letras[numeroAConvertir[index]] + " ";
+    }
 
     return numeroConvertido
 }
