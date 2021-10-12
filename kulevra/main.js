@@ -1,4 +1,4 @@
-let mapa = [['*', '', '', '*', '*', '*'], ['*', '', '', '', '', ''], ['*', '', '', '', '*', '*'], ['*', '', '', '', '', ''], ['*', '*', '*', '*', '*', '*']];
+let mapa = [['*', ' ', ' ', '*', '*', '*'], ['*', ' ', ' ', ' ', ' ', ' '], ['*', ' ', ' ', ' ', '*', '*'], ['*', ' ', ' ', ' ', ' ', ' '], ['*', '*', '*', '*', '*', '*']];
 
 funcionamiento(mapa);
 
@@ -9,17 +9,13 @@ funcionamiento(mapa);
  */
 function buscarCulebras() {
 
-    let longitudes = [];
-
     for (let i = 0; i < mapa.length; i++) {
         for (let j = 0; j < mapa[i].length; j++) {
             if (mapa[i][j] == "*") {
-                longitudes.push(kulebra(i, j));
+                console.log(`Hay una serpiente de ${kulebra(i, j)} metros de longitud`);
             }
         }
     }
-
-    return longitudes;
 }
 
 /**
@@ -116,7 +112,7 @@ function mirarIzquierda(x, y) {
  */
 function mirarDerecha(x, y) {
 
-    if (x < mapa[x] - 1) {
+    if (x < mapa[x].length - 1) {
         if (mapa[x][y + 1] == "*") {
             return true;
         }
@@ -128,9 +124,7 @@ function funcionamiento(array) {
 
     mostrarMapa(array);
     console.log("\n\n")
-    buscarCulebras().forEach(longitud => {
-        console.log(`Hay una culebra de ${longitud} metros de longitud\n`)
-    });
+    buscarCulebras();
 }
 
 function mostrarMapa(array) {
