@@ -13,7 +13,7 @@ function buscarCulebras() {
 
     for (let i = 0; i < mapa.length; i++) {
         for (let j = 0; j < mapa[i].length; j++) {
-            if (mapa[i][j] == "") {
+            if (mapa[i][j] == "*") {
                 longitudes.push(kulebra(i, j));
             }
         }
