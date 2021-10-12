@@ -14,15 +14,20 @@ function generateRandomInt(min, max) {
     return Math.floor((Math.random() * (max - min)) + min);
 }
 
+/**
+ * Metodo que hace crecer la culebra
+ * @param {Number} x coordenada x del mapa
+ * @param {Number} y coordenada y del mapa
+ */
 function crecer(x, y) {
 
     campo[x][y] = "*";
 
+    mostrarMapa();
+
     let puedeCrecer = false; //false - no puede | true - puede  crecer
     let intentos = 0;
     do {
-
-
         switch (generateRandomInt(1, 5)) {
             case 1:
                 puedeCrecer = mirarArriba(x, y);
@@ -49,7 +54,6 @@ function crecer(x, y) {
                 }
                 break;
         }
-
         intentos++;
         //estadisticamente con 12 repeticiones, minimo mira una vez todas las direcciones (4 dir * 3 veces)
     } while (!puedeCrecer && intentos < 12);
@@ -76,20 +80,7 @@ function mirarArriba(x, y) {
         let coordX = x - 1;
         let coordY = y;
 
-        switch (coordX, coordY) {
-            case coordX == 0 && coordY == 0:
-                return nadaDcha(coordX, coordY)
-            case coordX == 0 && coordY == campo[coordX].length:
-                return nadaIzq(coordX, coordY)
-            case coordX == 0:
-                return nadaDcha(coordX, coordY) && nadaIzq(coordX, coordY)
-            case coordY == 0:
-                return nadaIzq(coordX, coordY) && nadaArriba(coordX, coordY)
-            case coordY == campo[coordX].length:
-                return nadaDcha(coordX, coordY) && nadaArriba(coordX, coordY)
-            default:
-                return nadaDcha(coordX, coordY) && nadaIzq(coordX, coordY) && nadaArriba(coordX, coordY)
-        }
+        return nadaDcha(coordX, coordY) && nadaIzq(coordX, coordY) && nadaArriba(coordX, coordY)
     }
 
     return false;
@@ -114,22 +105,8 @@ function mirarAbajo(x, y) {
         let coordX = x + 1;
         let coordY = y;
 
-        switch (coordX, coordY) {
-            case coordX == campo.length - 1 && coordY == 0:
-                return nadaDcha(coordX, coordY)
-            case coordX == campo.length - 1 && coordY == campo[coordX].length:
-                return nadaIzq(coordX, coordY)
-            case coordX == campo.length - 1:
-                return nadaDcha(coordX, coordY) && nadaIzq(coordX, coordY)
-            case coordY == 0:
-                return nadaIzq(coordX, coordY) && nadaAbajo(coordX, coordY)
-            case coordY == campo[coordX].length:
-                return nadaDcha(coordX, coordY) && nadaAbajo(coordX, coordY)
-            default:
-                return nadaDcha(coordX, coordY) && nadaIzq(coordX, coordY) && nadaAbajo(coordX, coordY)
-        }
+        return nadaDcha(coordX, coordY) && nadaIzq(coordX, coordY) && nadaAbajo(coordX, coordY)
     }
-
     return false;
 }
 
@@ -152,28 +129,8 @@ function mirarDcha(x, y) {
         let coordX = x;
         let coordY = y + 1;
 
-        switch (coordX, coordY) {
-            //si esta en la esquina superior derecha
-            case coordX == campo.length && coordY == campo[x].length - 1:
-                return nadaAbajo(coordX, coordY)
-            //si esta en la esquina inferior derecha
-            case coordX == campo.length && coordY == campo[x].length - 1:
-                return nadaArriba(coordX, coordY)
-            //si esta en el borde derecho, solo arriba y abajo
-            case coordY == campo[x].length - 1:
-                return nadaArriba(coordX, coordY) && nadaAbajo(coordX, coordY)
-            //si crece por el borde superior
-            case coordX == 0:
-                return nadaAbajo(coordX, coordY) && nadaDcha(coordX, coordY)
-            //si crece por el borde inferior
-            case coordX == campo.length:
-                return nadaArriba(coordX, coordY) && nadaDcha(coordX, coordY)
-            //sino en todas menos la origen (izquierda)
-            default:
-                return nadaArriba(coordX, coordY) && nadaAbajo(coordX, coordY) && nadaDcha(coordX, coordY)
-        }
+        return nadaArriba(coordX, coordY) && nadaAbajo(coordX, coordY) && nadaDcha(coordX, coordY)
     }
-
     return false;
 }
 
@@ -196,28 +153,8 @@ function mirarIzquierda(x, y) {
         let coordX = x;
         let coordY = y - 1;
 
-        switch (coordX, coordY) {
-            //si esta en la esquina siperior izquierda solo debve mirar abajo
-            case coordX == 0 && coordY == 0:
-                return nadaAbajo(coordX, coordY);
-            //en la unferior izquierda solo arriba
-            case coordX == campo.length - 1 && coordY == 0:
-                return nadaArriba(coordX, coordY)
-            //en el borde izquierdo arriba y abajo
-            case coordY == 0:
-                return nadaAbajo(coordX, coordY) && nadaArriba(coordX, coordY);
-            //si crece por el borde superior
-            case coordX == 0:
-                return nadaAbajo(coordX, coordY) && nadaIzq(coordX, coordY)
-            //si crece por el borde inferior
-            case coordX == campo.length:
-                return nadaArriba(coordX, coordY) && nadaIzq(coordX, coordY)
-            //sino en todas menos la origen (derecha)
-            default:
-                return nadaArriba(coordX, coordY) && nadaAbajo(coordX, coordY) && nadaIzq(coordX, coordY)
-        }
+        return nadaArriba(coordX, coordY) && nadaAbajo(coordX, coordY) && nadaIzq(coordX, coordY)
     }
-
     return false;
 }
 
@@ -231,7 +168,13 @@ function mirarIzquierda(x, y) {
  * @returns true - No tiene nada a la derecha | false - Tiene cuerpo de la serpiente en esa posicion
  */
 function nadaDcha(x, y) {
-    return campo[x][y + 1] == " ";
+    //si esta dentro de los limites, comprobara
+    if (y < campo[x].length - 1) {
+        return campo[x][y + 1] == " ";
+        //sino devolvera true por que esta en el borde y no hay mas alla
+    } else {
+        return true;
+    }
 }
 
 /**
@@ -242,7 +185,11 @@ function nadaDcha(x, y) {
  * @returns true - No tiene nada a la izquierda | false - Tiene cuerpo de la serpiente en esa posicion
  */
 function nadaIzq(x, y) {
-    return campo[x][y - 1] == " "
+    if (y > 0) {
+        return campo[x][y - 1] == " "
+    } else {
+        return true;
+    }
 }
 
 /**
@@ -253,7 +200,11 @@ function nadaIzq(x, y) {
  * @returns true - No tiene nada arriba | false - Tiene cuerpo de la serpiente en esa posicion
  */
 function nadaArriba(x, y) {
-    return campo[x - 1][y] == " "
+    if (x > 0) {
+        return campo[x - 1][y] == " "
+    } else {
+        return true;
+    }
 }
 
 /**
@@ -264,11 +215,24 @@ function nadaArriba(x, y) {
  * @returns true - No tiene nada abajo | false - Tiene cuerpo de la serpiente en esa posicion
  */
 function nadaAbajo(x, y) {
-    return campo[x + 1][y] == " "
+    if (x < campo.length - 1) {
+        return campo[x + 1][y] == " "
+    } else {
+        return true;
+    }
 }
 
+function mostrarMapa() {
+    let texto = "";
+    for (let i = 0; i < campo.length; i++) {
 
+        for (let j = 0; j < campo[i].length; j++) {
 
-console.log(campo);
+            texto += ` [${campo[i][j]}] `;
+        }
+        texto += `\n`;
+    }
+    console.log(texto)
+}
+
 crecer(4, 6);
-console.log(campo);
