@@ -10,7 +10,7 @@ function generarArray(filas, columnas) {
     for (let i = 0; i < filas; i++) {
         minas.push(new Array());
         for (let j = 0; j < columnas; j++) {
-            minas[i].push("⬜️");
+            minas[i][j].push("⬜️");
         }
     }
 
