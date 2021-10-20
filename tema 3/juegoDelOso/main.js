@@ -1,16 +1,24 @@
 var posibilidades = ["O", "O", "O", "S", "S"]
 
 /**
+ * Metodo que devuelve, del array de posibilidades,
+ * la letra O o S, con mas 
+ * @returns O | S
+ */
+let letraAleatoria = () => posibilidades[Math.round(Math.random() * (posibilidades.length - 1))]; // 0|1 * (max - min + min)
+
+//llamamos a la funcion principal que ejecuta todo el programa
+MAIN();
+
+/**
  * Funcion principal del programa
  */
 function MAIN() {
 
-    let MATRIZ = generarmatriz(9, i3);
+    let MATRIZ = generarmatriz(9, 13);
     //console.table(MATRIZ);//para mirar la matriz
 
     genera_tabla(MATRIZ);
-
-    //MATRIZ = cazaOso(MATRIZ);
 
     //genearmos espacio en codigo html
     let saltoLinea = document.createElement("br");//creamos etiqueta br
@@ -18,7 +26,7 @@ function MAIN() {
     document.getElementsByTagName("body")[0].appendChild(saltoLinea);//repetimos
 
     //volvemos a implantar la matriz en forma de tabla en la pagina(solo para tema de visivilidad)
-    genera_tabla(MATRIZ);
+    genera_tabla(cazaOso(MATRIZ));
 }
 
 /**
@@ -61,28 +69,21 @@ function genera_tabla(matriz) {
 }
 
 /**
- * Metodo que devuelve, del array de posibilidades,
- * la letra O o S, con mas 
- * @returns O | S
- */
-let letraAleatoria = () => posibilidades[Math.round(Math.random() * (posibilidades.length - i))]; // 0|i * (max - min + min)
-
-/**
  * Metoido que genera y rellena de manera aleatoria una matriz de O y S
  * 
- * @param {Number} fila filas que va a tener la matriz
- * @param {Number} columna columnas que tendra la matriz
+ * @param {Number} filas filas que va a tener la matriz
+ * @param {Number} columnas columnas que tendra la matriz
  * @returns Matriz rellena de OS
  */
-let generarmatriz = (fila, columna) => {
+function generarmatriz(filas, columnas) {
 
     let matriz = [];
 
-    for (let i = 0; i < fila; i++) {
+    for (let i = 0; i < filas; i++) {
 
-        matriz.push([])//por cada iteracion, en la matriz, en cada fiula le meto un array nuevo y vacio
+        matriz.push([]); //por cada iteracion, en la matriz, en cada fiula le meto un array nuevo y vacio
 
-        for (let j = 0; j < columna; j++) {
+        for (let j = 0; j < columnas; j++) {
 
             matriz[i][j] = letraAleatoria();
         }
@@ -92,9 +93,10 @@ let generarmatriz = (fila, columna) => {
 }
 
 /**
- * 
- * @param {*} matriz 
- * @returns 
+ * Metodo que busca y elimina en toda la matriz todas
+ * las secuencias de OSO que haya en la matriz
+ * @param {Array.<string>} matriz Matriz en la que buscaremos, y eliminaremos las OSO posible
+ * @returns matriz con los osos eliminados
  */
 function cazaOso(matriz) {
 
@@ -103,45 +105,329 @@ function cazaOso(matriz) {
 
             //buscamos una o que sea candidata
             if (matriz[i][j] == "O") {
-                switch (i, j) {
+                //miramos en todas las direcciones posibles
 
-                    case sDerecha(i, j):
-
-                        break;
-                    case sEsqInfDcha(i, j):
-
-                        break;
-                    case sAbajo(i, j):
-
-                        break;
-                    case sEsqInfIzq(i, j):
-
-                        break;
-                    case sDerecha(i, j):
-
-                        break;
-                    case sDerecha(i, j):
-
-                        break;
-                    case sDerecha(i, j):
-
-                        break;
-                    case sDerecha(i, j):
-
-                        break;
-                    default:
-                        //no tiene eses alrededor para formar un "oso"
-                        break;
+                if (sDerecha(i, j + 1, matriz)) {
+                    if (oDerecha(i, j + 2, matriz)) {
+                        //VACIAMOS ESAS POCICIOSNES (CAZAMOS AL OSO)
+                        matriz[i][j] = " ";
+                        matriz[i][j + 1] = " ";
+                        matriz[i][j + 2] = " ";
+                    }
+                }
+                if (sEsqInfDcha(i + 1, j + 1, matriz)) {
+                    if (oAbDcha(i + 2, j + 2, matriz)) {
+                        matriz[i][j] = " ";
+                        matriz[i + 1][j + 1] = " ";
+                        matriz[i + 2][j + 2] = " ";
+                    }
+                }
+                if (sAbajo(i + 1, j, matriz)) {
+                    if (oAbajo(i + 2, j, matriz)) {
+                        matriz[i][j] = " ";
+                        matriz[i + 1][j] = " ";
+                        matriz[i + 2][j] = " ";
+                    }
+                }
+                if (sEsqInfIzq(i + 1, j - 1, matriz)) {
+                    if (oAbIzq(i + 2, j - 2, matriz)) {
+                        matriz[i][j] = " ";
+                        matriz[i + 1][j - 1] = " ";
+                        matriz[i + 2][j - 2] = " ";
+                    }
+                }
+                if (sIzquierda(i, j - 1, matriz)) {
+                    if (oIzquierda(i, j - 2, matriz)) {
+                        matriz[i][j] = " ";
+                        matriz[i][j - 1] = " ";
+                        matriz[i][j - 2] = " ";
+                    }
+                }
+                if (sArrIzq(i - 1, j - 1, matriz)) {
+                    if (oArrIzq(i - 2, j - 2, matriz)) {
+                        matriz[i][j] = " ";
+                        matriz[i - 1][j - 1] = " ";
+                        matriz[i - 2][j - 2] = " ";
+                    }
+                }
+                if (sArriba(i - 1, j, matriz)) {
+                    if (oArriba(i - 2, j, matriz)) {
+                        matriz[i][j] = " ";
+                        matriz[i - 1][j] = " ";
+                        matriz[i - 2][j] = " ";
+                    }
+                }
+                if (sArrDcha(i - 1, j + 1, matriz)) {
+                    if (oArrDcha(i - 2, j + 2, matriz)) {
+                        matriz[i][j] = " ";
+                        matriz[i - 1][j + 1] = " ";
+                        matriz[i - 2][j + 2] = " ";
+                    }
                 }
             }
-
         }
 
     }
-
     return matriz;
 }
 
-matriz[i][j]
 
-MAIN();
+
+
+/* FUNCIONES DE BUSQUEDA DE O Y S DENTRO DE LA MATRIZ */
+
+/**
+ * Metodo q ue busca hacia la derecha si hay una "S",
+ * controlando que no se salga de la matriz
+ * @param {Number} x corrdenada x
+ * @param {Number} y coordenada y
+ * @param {Array.<string>} matriz matriz sobre la que buscaremos
+ * @returns true - hay S en esa direccion | false - no hay S en esa direccion
+ */
+function sDerecha(x, y, matriz) {
+    if (y < matriz[x].length) {
+        return matriz[x][y] == "S";
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Metodo q ue busca hacia abajo a la derecha si hay una "S",
+ * controlando que no se salga de la matriz
+ * @param {Number} x corrdenada x
+ * @param {Number} y coordenada y
+ * @param {Array.<string>} matriz matriz sobre la que buscaremos
+ * @returns true - hay S en esa direccion | false - no hay S en esa direccion
+ */
+function sEsqInfDcha(x, y, matriz) {
+    if (x < matriz.length && y < matriz[x].length) {
+        return matriz[x][y] == "S";
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Metodo q ue busca hacia abajo si hay una "S",
+ * controlando que no se salga de la matriz
+ * @param {Number} x corrdenada x
+ * @param {Number} y coordenada y
+ * @param {Array.<string>} matriz matriz sobre la que buscaremos
+ * @returns true - hay S en esa direccion | false - no hay S en esa direccion
+ */
+function sAbajo(x, y, matriz) {
+    if (x < matriz.length) {
+        return matriz[x][y] == "S";
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Metodo q ue busca hacia abajo a la izquierda si hay una "S",
+ * controlando que no se salga de la matriz
+ * @param {Number} x corrdenada x
+ * @param {Number} y coordenada y
+ * @param {Array.<string>} matriz matriz sobre la que buscaremos
+ * @returns true - hay S en esa direccion | false - no hay S en esa direccion
+ */
+function sEsqInfIzq(x, y, matriz) {
+    if (x < matriz.length && y >= 0) {
+        return matriz[x][y] == "S";
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Metodo q ue busca hacia la izquierda si hay una "S",
+ * controlando que no se salga de la matriz
+ * @param {Number} x corrdenada x
+ * @param {Number} y coordenada y
+ * @param {Array.<string>} matriz matriz sobre la que buscaremos
+ * @returns true - hay S en esa direccion | false - no hay S en esa direccion
+ */
+function sIzquierda(x, y, matriz) {
+    if (y >= 0) {
+        return matriz[x][y] == "S";
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Metodo q ue busca hacia arriba a la izquierda si hay una "S",
+ * controlando que no se salga de la matriz
+ * @param {Number} x corrdenada x
+ * @param {Number} y coordenada y
+ * @param {Array.<string>} matriz matriz sobre la que buscaremos
+ * @returns true - hay S en esa direccion | false - no hay S en esa direccion
+ */
+function sArrIzq(x, y, matriz) {
+    if (x >= 0 && y >= 0) {
+        return matriz[x][y] == "S";
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Metodo q ue busca hacia arriba si hay una "S",
+ * controlando que no se salga de la matriz
+ * @param {Number} x corrdenada x
+ * @param {Number} y coordenada y
+ * @param {Array.<string>} matriz matriz sobre la que buscaremos
+ * @returns true - hay S en esa direccion | false - no hay S en esa direccion
+ */
+function sArriba(x, y, matriz) {
+    if (x >= 0) {
+        return matriz[x][y] == "S";
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Metodo q ue busca hacia arriba a la derecha si hay una "S",
+ * controlando que no se salga de la matriz
+ * @param {Number} x corrdenada x
+ * @param {Number} y coordenada y
+ * @param {Array.<string>} matriz matriz sobre la que buscaremos
+ * @returns true - hay S en esa direccion | false - no hay S en esa direccion
+ */
+function sArrDcha(x, y, matriz) {
+    if (x >= 0 && y < matriz[x].length) {
+        return matriz[x][y] == "S";
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Metodo q ue busca hacia la derecha si hay una "O",
+ * controlando que no se salga de la matriz
+ * @param {Number} x corrdenada x
+ * @param {Number} y coordenada y
+ * @param {Array.<string>} matriz matriz sobre la que buscaremos
+ * @returns true - hay O en esa direccion | false - no hay O en esa direccion
+ */
+function oDerecha(x, y, matriz) {
+    if (y < matriz[x].length) {
+        return matriz[x][y] == "O";
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Metodo q ue busca hacia abajo a la derecha si hay una "O",
+ * controlando que no se salga de la matriz
+ * @param {Number} x corrdenada x
+ * @param {Number} y coordenada y
+ * @param {Array.<string>} matriz matriz sobre la que buscaremos
+ * @returns true - hay O en esa direccion | false - no hay O en esa direccion
+ */
+function oAbDcha(x, y, matriz) {
+    if (x < matriz.length && y < matriz[x].length) {
+        return matriz[x][y] == "O";
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Metodo q ue busca hacia abajo si hay una "O",
+ * controlando que no se salga de la matriz
+ * @param {Number} x corrdenada x
+ * @param {Number} y coordenada y
+ * @param {Array.<string>} matriz matriz sobre la que buscaremos
+ * @returns true - hay O en esa direccion | false - no hay O en esa direccion
+ */
+function oAbajo(x, y, matriz) {
+    if (x < matriz.length) {
+        return matriz[x][y] == "O";
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Metodo q ue busca hacia abajo a la izquierda si hay una "O",
+ * controlando que no se salga de la matriz
+ * @param {Number} x corrdenada x
+ * @param {Number} y coordenada y
+ * @param {Array.<string>} matriz matriz sobre la que buscaremos
+ * @returns true - hay O en esa direccion | false - no hay O en esa direccion
+ */
+function oAbIzq(x, y, matriz) {
+    if (x < matriz.length && y >= 0) {
+        return matriz[x][y] == "O";
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Metodo q ue busca hacia la izquierda si hay una "O",
+ * controlando que no se salga de la matriz
+ * @param {Number} x corrdenada x
+ * @param {Number} y coordenada y
+ * @param {Array.<string>} matriz matriz sobre la que buscaremos
+ * @returns true - hay O en esa direccion | false - no hay O en esa direccion
+ */
+function oIzquierda(x, y, matriz) {
+    if (y >= 0) {
+        return matriz[x][y] == "O";
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Metodo q ue busca hacia arriba a la izquierda si hay una "O",
+ * controlando que no se salga de la matriz
+ * @param {Number} x corrdenada x
+ * @param {Number} y coordenada y
+ * @param {Array.<string>} matriz matriz sobre la que buscaremos
+ * @returns true - hay O en esa direccion | false - no hay O en esa direccion
+ */
+function oArrIzq(x, y, matriz) {
+    if (x >= 0 && y >= 0) {
+        return matriz[x][y] == "O";
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Metodo q ue busca hacia arriba si hay una "O",
+ * controlando que no se salga de la matriz
+ * @param {Number} x corrdenada x
+ * @param {Number} y coordenada y
+ * @param {Array.<string>} matriz matriz sobre la que buscaremos
+ * @returns true - hay O en esa direccion | false - no hay O en esa direccion
+ */
+function oArriba(x, y, matriz) {
+    if (x >= 0) {
+        return matriz[x][y] == "O";
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Metodo q ue busca hacia arriba a la derecha si hay una "O",
+ * controlando que no se salga de la matriz
+ * @param {Number} x corrdenada x
+ * @param {Number} y coordenada y
+ * @param {Array.<string>} matriz matriz sobre la que buscaremos
+ * @returns true - hay O en esa direccion | false - no hay O en esa direccion
+ */
+function oArrDcha(x, y, matriz) {
+    if (x >= 0 && y < matriz[x].length) {
+        return matriz[x][y] == "O";
+    } else {
+        return false;
+    }
+}
