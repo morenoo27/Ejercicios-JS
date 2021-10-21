@@ -171,9 +171,6 @@ function cazaOso(matriz) {
     return matriz;
 }
 
-
-
-
 /* FUNCIONES DE BUSQUEDA DE O Y S DENTRO DE LA MATRIZ */
 
 /**
