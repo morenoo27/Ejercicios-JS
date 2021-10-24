@@ -223,16 +223,7 @@ function nadaAbajo(x, y) {
 }
 
 function mostrarMapa() {
-    let texto = "";
-    for (let i = 0; i < campo.length; i++) {
-
-        for (let j = 0; j < campo[i].length; j++) {
-
-            texto += ` [${campo[i][j]}] `;
-        }
-        texto += `\n`;
-    }
-    console.log(texto)
+    console.table(campo)
 }
 
 crecer(4, 6);
