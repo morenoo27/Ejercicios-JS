@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio propuesto Map</title>
+</head>
+
+<body>
+    <p>
+        Tenemos el array definido de la siguiente manera:
+        let numeros = [1, 2, 3, 4, 5, 6, 7]; cuando pulses el botón aquí
+        aparecerán los mismos números incrementados en uno
+    </p>
+    <p id="array"></p>
+    <p id="resultado"></p>
+    <button onclick="dale()">ejecuta</button>
+    <script>
+        let numeros = [1, 2, 3, 4, 5, 6, 7];
+        function dale() {
+            
+            let obj = document.getElementById("resultado")
+            obj.innerHTML = numeros.map((valor) => valor % 2 == 0 ? "Par" : "Impar");
+        }
+    </script>
+</body>
+
+</html>
