@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map</title>
+</head>
+
+<body>
+    <p>
+        Introduzca nombre de la ciudad para mostrar su coodigo postal <br>
+        correspondiente.
+    </p>
+    <input type="text" name="nombreCiudad" id="nombreCiudad" placeholder="Nombre de ciudad">
+    <button onclick="buscarCP()">Buscar codigo postal</button>
+    <p id="resultado">
+        Codigo postal de la ciudad: 
+    </p>
+    <script>
+        let CiudadesPostales = [{ cp: 28924, nombre: "ESTEPONA" }, { cp: 29600, nombre: "MARBELLA" }, { cp: 11360, nombre: "SAN ROQUE" }, { cp: 29001, nombre: "MALAGA" }, { cp: 29650, nombre: "MIJAS" }];
+
+        function buscarCP() {
+            
+            let ciudadABuscar = document.getElementById("nombreCiudad").value;
+
+            ciudadABuscar.toUpperCase();
+
+            let cp = (CiudadesPostales.find((ciudad) => ciudad.nombre.includes(ciudadABuscar))).cp
+        
+            document.getElementById("resultado").innerHTML += cp;
+        }
+    </script>
+</body>
+
+</html>
