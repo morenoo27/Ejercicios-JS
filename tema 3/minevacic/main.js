@@ -13,7 +13,7 @@ function MAIN() {
 
     let radio = 1;
 
-    for (let i = 0; i < minas.length; i++) {
+    for (let k = 0; k < minas.length; k++) {
 
         //buscamos mina EN TODA LA MATRIZ
         for (let i = 0; i < minas.length; i++) {
@@ -30,20 +30,22 @@ function MAIN() {
     console.table(minas)
 }
 
-function hayMinas(matriz) {
-    for (let i = 0; i < matriz.length; i++) {
-        for (let j = 0; j < matriz[i].length; j++) {
-
-            if (matriz[i][j] == 0) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
 /**
- * Metodo que pinta en las direcciones que se pueda la longitud que hay hacia la mina objetivo
+ * Metodo que pinta en las direcciones que se pueda la longitud que hay hacia la mina objetivo.
+ * 
+ * Lo que hacemos es dibujar (en las posiciones dentro de la matriz donde no se ha pintado numero todavia)
+ * 
+ * Lo que hacemos es pintar esto:
+ *  ____________
+ * |            |
+ * |            |
+ * |     1      |
+ * |            |
+ * |____________|
+ *  
+ * 
+ * Todas tienen la misma longitud, radio * 2
+ * 
  * @param {Number} x coordenada donde se encuentra la mina
  * @param {Number} y coordenada y donde se encuentra la mina
  * @param {Number} radio Radio sobre el que pintara, tomando como cento la mina
@@ -51,191 +53,53 @@ function hayMinas(matriz) {
  */
 function pintarAlrededores(x, y, radio, matriz) {
 
-    if (pDerecha(x, y + radio, matriz)) {
-        matriz[x][y + radio] = radio + 1;
+    let diametro = 2 * radio;
 
+    for (let i = 1; i <= diametro; i++) {
+
+        //inicio equina superior derecha to izquierda
+        //matriz[x - radio][y + radio]
+        if (x - radio >= 0) {
+            //que este dentro de la matriz la suma
+            //menos i, que es la posicion del diametro
+            if (matriz[x - radio].length > y + radio - i && y + radio - i >= 0) {
+                //miramos si no esta escrito el nivel
+                if (matriz[x - radio][y + radio - i] == 0) {
+                    matriz[x - radio][y + radio - i] = radio + 1;
+                }
+            }
+        }
+
+        //inicio equina superior izquierda to abajo
+        //matriz[x - radio][y - radio]
+        if (y - radio >= 0) {
+            if (0 <= x - radio + i && x - radio + i < matriz.length) {
+                if (matriz[x - radio + i][y - radio] == 0) {
+                    matriz[x - radio + i][y - radio] = radio + 1;
+                }
+            }
+        }
+
+        //inicio equina inferior izquierda to derecha
+        //matriz[x + radio][y - radio]
+        if (x + radio < matriz.length) {
+            if (0 <= y - radio + i && y - radio + i < matriz[x + radio].length) {
+                if (matriz[x + radio][y - radio + i] == 0) {
+                    matriz[x + radio][y - radio + i] = radio + 1;
+                }
+            }
+        }
+
+        //inicio equina inferior derecha to arriba
+        //matriz[x + radio][y + radio]
+        if (y + radio < matriz[0].length) {
+            if (0 <= x + radio - i && x + radio - i < matriz.length) {
+                if (matriz[x + radio - i][y + radio] == 0) {
+                    matriz[x + radio - i][y + radio] = radio + 1;
+                }
+            }
+        }
     }
-
-    if (pEsqInfDcha(x + radio, y + radio, matriz)) {
-        matriz[x + radio][y + radio] = radio + 1;
-
-    }
-
-    if (pAbajo(x + radio, y, matriz)) {
-        matriz[x + radio][y] = radio + 1;
-
-    }
-
-    if (pEsqInfIzq(x + radio, y - radio, matriz)) {
-        matriz[x + radio][y - radio] = radio + 1;
-
-    }
-
-    if (pIzquierda(x, y - radio, matriz)) {
-        matriz[x][y - radio] = radio + 1;
-
-    }
-
-    if (pArrIzq(x - radio, y - radio, matriz)) {
-        matriz[x - radio][y - radio] = radio + 1;
-
-    }
-
-    if (pArriba(x - radio, y, matriz)) {
-        matriz[x - radio][y] = radio + 1;
-
-    }
-
-    if (pArrDcha(x - radio, y + radio, matriz)) {
-        matriz[x - radio][y + radio] = radio + 1;
-
-    }
-
-
 
     return matriz;
-}
-
-/**
- * Metodo q ue busca hacia la derecha si hay una 0,
- * controlando que no se salga de la matriz
- * @param {Number} x corrdenada x
- * @param {Number} y coordenada y
- * @param {Array.<Number>} matriz matriz sobre la que buscaremos
- * @returns true - hay 0 en esa direccion | false - no hay 0 en esa direccion
- */
-function pDerecha(x, y, matriz) {
-    if (y < matriz[x].length) {
-        return matriz[x][y] == 0;
-    }
-
-    {
-        return false;
-    }
-}
-
-/**
- * Metodo q ue busca hacia abajo a la derecha si hay una 0,
- * controlando que no se salga de la matriz
- * @param {Number} x corrdenada x
- * @param {Number} y coordenada y
- * @param {Array.<Number>} matriz matriz sobre la que buscaremos
- * @returns true - hay 0 en esa direccion | false - no hay 0 en esa direccion
- */
-function pEsqInfDcha(x, y, matriz) {
-    if (x < matriz.length && y < matriz[x].length) {
-        return matriz[x][y] == 0;
-    }
-
-    {
-        return false;
-    }
-}
-
-/**
- * Metodo q ue busca hacia abajo si hay una 0,
- * controlando que no se salga de la matriz
- * @param {Number} x corrdenada x
- * @param {Number} y coordenada y
- * @param {Array.<Number>} matriz matriz sobre la que buscaremos
- * @returns true - hay 0 en esa direccion | false - no hay 0 en esa direccion
- */
-function pAbajo(x, y, matriz) {
-    if (x < matriz.length) {
-        return matriz[x][y] == 0;
-    }
-
-    {
-        return false;
-    }
-}
-
-/**
- * Metodo q ue busca hacia abajo a la izquierda si hay una 0,
- * controlando que no se salga de la matriz
- * @param {Number} x corrdenada x
- * @param {Number} y coordenada y
- * @param {Array.<Number>} matriz matriz sobre la que buscaremos
- * @returns true - hay 0 en esa direccion | false - no hay 0 en esa direccion
- */
-function pEsqInfIzq(x, y, matriz) {
-    if (x < matriz.length && y >= 0) {
-        return matriz[x][y] == 0;
-    }
-
-    {
-        return false;
-    }
-}
-
-/**
- * Metodo q ue busca hacia la izquierda si hay una 0,
- * controlando que no se salga de la matriz
- * @param {Number} x corrdenada x
- * @param {Number} y coordenada y
- * @param {Array.<Number>} matriz matriz sobre la que buscaremos
- * @returns true - hay 0 en esa direccion | false - no hay 0 en esa direccion
- */
-function pIzquierda(x, y, matriz) {
-    if (y >= 0) {
-        return matriz[x][y] == 0;
-    }
-
-    {
-        return false;
-    }
-}
-
-/**
- * Metodo q ue busca hacia arriba a la izquierda si hay una 0,
- * controlando que no se salga de la matriz
- * @param {Number} x corrdenada x
- * @param {Number} y coordenada y
- * @param {Array.<Number>} matriz matriz sobre la que buscaremos
- * @returns true - hay 0 en esa direccion | false - no hay 0 en esa direccion
- */
-function pArrIzq(x, y, matriz) {
-    if (x >= 0 && y >= 0) {
-        return matriz[x][y] == 0;
-    }
-
-    {
-        return false;
-    }
-}
-
-/**
- * Metodo q ue busca hacia arriba si hay una 0,
- * controlando que no se salga de la matriz
- * @param {Number} x corrdenada x
- * @param {Number} y coordenada y
- * @param {Array.<Number>} matriz matriz sobre la que buscaremos
- * @returns true - hay 0 en esa direccion | false - no hay 0 en esa direccion
- */
-function pArriba(x, y, matriz) {
-    if (x >= 0) {
-        return matriz[x][y] == 0;
-    }
-
-    {
-        return false;
-    }
-}
-
-/**
- * Metodo q ue busca hacia arriba a la derecha si hay una 0,
- * controlando que no se salga de la matriz
- * @param {Number} x corrdenada x
- * @param {Number} y coordenada y
- * @param {Array.<Number>} matriz matriz sobre la que buscaremos
- * @returns true - hay 0 en esa direccion | false - no hay 0 en esa direccion
- */
-function pArrDcha(x, y, matriz) {
-    if (x >= 0 && y < matriz[x].length) {
-        return matriz[x][y] == 0;
-    }
-
-    {
-        return false;
-    }
 }
