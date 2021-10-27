@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minevacic</title>
 </head>
+
 <body>
-    <input type="number" name="gradoMatriz" id="gradoMatriz" min="1" max="20">
-    <input type="number" name="numeroMinas" id="numeroMinas">
-    <button>Generar matriz de minas</button>
+    <p>
+        <label for="gradoMatriz">Determine el grado de la matriz: </label> <br>
+        <input type="number" name="gradoMatriz" id="gradoMatriz" min="2" max="15"> <br> <br>
+        <label for="numeroMinas">Cuantas minas apareceran en el campo:</label> <br>
+        <input type="number" name="numeroMinas" id="numeroMinas"> <br> <br>
+        <button id="botonGenerarMatriz">Generar matriz de minas</button>
+    </p>
+
+    <div id="tabla">
+        
+    </div>
+    
     <script src="main.js"></script>
 </body>
+
 </html>

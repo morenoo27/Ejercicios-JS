@@ -1,33 +1,58 @@
-let minas = [
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 0, 0, 0]
-];
 
-MAIN();
+/* INSTANCIACION DE ELEMENTOS NECESARIOS */
+
+//añadimos el listener al boton para enlazar html con el script
+document.getElementById("botonGenerarMatriz").addEventListener("click", MAIN)
+
+// niveles => [🤯, 🟥, 🟧, 🟨, 🟩, 🟦, 🟪, ⬛️, ⬜️, 🟫];
+
+/**
+ * metodo que genera un numero aleatorio entre 0 y el numero que pases por parametro
+ * @param {Number} max Valor maximo que podra tener el aleatorio devuelto
+ * @returns Intervalo entre 0 y max
+ */
+let generarCoordenadaAleatoria = (max) => Math.round(Math.random() * (max));
+
 
 function MAIN() {
 
+    let extensionCampo = document.getElementById("gradoMatriz").value;
+
+    let totalMinas = document.getElementById("numeroMinas").value;
+
+    let campoMinas = generarCampo(extensionCampo, totalMinas);
+
+    campoMinas = pintarRadios(campoMinas);
+
+    pintarMatrizEnHTML(campoMinas);
+}
+
+/**
+ * Metodo que recorre  toda la matriz y pinta en forma de capas
+ * los numeros que tienen como
+ * @param {Array.<Number[]>} array matriz sobre la que actaremos
+ * @returns matriz pintada entera
+ */
+function pintarRadios(array) {
+
     let radio = 1;
 
-    for (let k = 0; k < minas.length; k++) {
+    for (let k = 0; k < array.length; k++) {
 
         //buscamos mina EN TODA LA MATRIZ
-        for (let i = 0; i < minas.length; i++) {
-            for (let j = 0; j < minas[i].length; j++) {
+        for (let i = 0; i < array.length; i++) {
+            for (let j = 0; j < array[i].length; j++) {
                 //es mina
-                if (minas[i][j] == 1) {
+                if (array[i][j] == 1) {
 
-                    minas = pintarAlrededores(i, j, radio, minas);
+                    array = pintarAlrededores(i, j, radio, array);
                 }
             }
         }
         radio++;
     }
-    console.table(minas)
+
+    return array;
 }
 
 /**
@@ -102,4 +127,49 @@ function pintarAlrededores(x, y, radio, matriz) {
     }
 
     return matriz;
+}
+
+/**
+ * Metodoq que genera una matriz de grado "grado" con tantas minas
+ * (generadas de manera aleatoria) como se pasen por parametro
+ * @param {Number} grado grado que tendra la matriz
+ * @param {Number} minasMaximas Numerop de minas que tendra la matriz
+ * @returns campo de minas creadas
+ */
+function generarCampo(grado, minasMaximas) {
+
+    //instanciamos el array de con grado pasado por parametro(unidimensional)
+    let campoMinas = [];
+
+    for (let i = 0; i < grado; i++) {
+        //a cada posicion le añadimos otro array de grado pasado por parametros
+        campoMinas.push([])
+        for (let j = 0; j < grado; j++) {
+            //lo rellenamos todo de valores "0"        
+            campoMinas[i].push(0)
+        }
+
+    }
+
+    //generamos de manera aleatoria una coordenada y ponemos en esa coordenada una mina
+    for (let i = 0; i < minasMaximas; i++) {
+
+        coordenadaX = generarCoordenadaAleatoria(grado - 1);
+        coordenadaY = generarCoordenadaAleatoria(grado - 1);
+
+        campoMinas[coordenadaX][coordenadaY] = 1;
+    }
+
+    return campoMinas;
+}
+
+function pintarMatrizEnHTML(matriz) {
+    
+    let divTable = document.getElementById("tabla")
+
+    let tabla = document.createElement("table")
+
+    divTable.appendChild(tabla);
+
+    console.table(matriz)
 }
