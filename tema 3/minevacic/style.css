@@ -1,0 +1,45 @@
+body {
+    font-family: Verdana, sans-serif;
+    font-size: 0.9em;
+}
+
+#tabla table {
+    text-align: center;
+    width: 30%;
+    height: 100%;
+}
+
+.mina {
+    background-color: red;
+    color: red;
+}
+
+.grado2 {
+    background-color: orange;
+    color: orange;
+}
+
+.grado4 {
+    background-color: burlywood;
+    color: burlywood;
+}
+
+.grado3 {
+    background-color: yellow;
+    color: yellow;
+}
+
+.grado5 {
+    background-color: green;
+    color: green;
+}
+
+.grado6 {
+    background-color: blue;
+    color: blue;
+}
+
+.negro {
+    background-color: black;
+    color: black;
+}

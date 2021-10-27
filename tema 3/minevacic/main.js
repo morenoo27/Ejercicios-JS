@@ -2,7 +2,8 @@
 /* INSTANCIACION DE ELEMENTOS NECESARIOS */
 
 //añadimos el listener al boton para enlazar html con el script
-document.getElementById("botonGenerarMatriz").addEventListener("click", MAIN)
+var botonGenMatriz = document.getElementById("botonGenerarMatriz")
+botonGenMatriz.addEventListener("click", MAIN)
 
 // niveles => [🤯, 🟥, 🟧, 🟨, 🟩, 🟦, 🟪, ⬛️, ⬜️, 🟫];
 
@@ -151,25 +152,103 @@ function generarCampo(grado, minasMaximas) {
 
     }
 
+    
     //generamos de manera aleatoria una coordenada y ponemos en esa coordenada una mina
-    for (let i = 0; i < minasMaximas; i++) {
-
+    let minapuesta = 0
+    while (minapuesta < minasMaximas) {
         coordenadaX = generarCoordenadaAleatoria(grado - 1);
         coordenadaY = generarCoordenadaAleatoria(grado - 1);
 
-        campoMinas[coordenadaX][coordenadaY] = 1;
+        if (campoMinas[coordenadaX][coordenadaY] != 1) {
+            campoMinas[coordenadaX][coordenadaY] = 1;
+            minapuesta++
+        }
     }
 
     return campoMinas;
 }
 
 function pintarMatrizEnHTML(matriz) {
-    
+
     let divTable = document.getElementById("tabla")
 
     let tabla = document.createElement("table")
 
+    let tblBody = document.createElement("tbody");
+
+    // Crea las celdas
+    for (let i = 0; i < matriz.length; i++) {
+        // Crea las filas de la tabla
+        let fila = document.createElement("tr");
+
+        for (let j = 0; j < matriz[i].length; j++) {
+            // Crea un elemento <td>
+            let celda = document.createElement("td");
+
+            // Ahora creamos el boton que ira en ese td
+            let botonCelda = crearInput(i, j, matriz);
+            //let botonCelda = document.createTextNode(matriz[i][j])
+
+            // Metemos el input en el td
+            celda.appendChild(botonCelda);
+
+            // Añadimos el elemento <td> al final de la fila de la tabla
+            fila.appendChild(celda);
+        }
+
+        // agrega la fila al final de la tabla (al final del elemento tblbody)
+        tblBody.appendChild(fila);
+    }
+
+    // posiciona el <tbody> debajo del elemento <table>
+    tabla.appendChild(tblBody);
+    tabla.setAttribute("border", "2");
+
     divTable.appendChild(tabla);
 
+    botonGenMatriz.disabled = true
+
     console.table(matriz)
+}
+
+function crearInput(x, y, matriz) {
+    //creamos el boton
+    let boton = document.createElement("input");
+
+    let grado = "";
+
+    switch (matriz[x][y]) {
+        case 1:
+            grado = "mina"
+            break;
+        case 2:
+            grado = "grado2"
+            break;
+        case 3:
+            grado = "grado3"
+            break;
+        case 4:
+            grado = "grado4"
+            break;
+        case 5:
+            grado = "grado5"
+            break;
+        case 6:
+            grado = "grado6"
+            break;
+        default:
+            grado = "negro"
+            break;
+    }
+
+    //instanciamos los atributos necesarios
+    boton.setAttribute("type", "button"); //tipo de input
+    boton.setAttribute("class", grado); //id
+    boton.setAttribute("value", matriz[x][y]); //valor
+
+    let textoBoton = document.createTextNode(matriz[x][y])
+
+    boton.appendChild(textoBoton)
+
+    return boton;
 }
