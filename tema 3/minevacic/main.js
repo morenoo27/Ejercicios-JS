@@ -61,16 +61,7 @@ function pintarRadios(array) {
  * 
  * Lo que hacemos es dibujar (en las posiciones dentro de la matriz donde no se ha pintado numero todavia)
  * 
- * Lo que hacemos es pintar esto:
- *  ____________
- * |            |
- * |            |
- * |     1      |
- * |            |
- * |____________|
- *  
- * 
- * Todas tienen la misma longitud, radio * 2
+ * Lo que hacemos es pintar a su alrededor
  * 
  * @param {Number} x coordenada donde se encuentra la mina
  * @param {Number} y coordenada y donde se encuentra la mina
