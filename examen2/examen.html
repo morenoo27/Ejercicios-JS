@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen</title>
+</head>
+
+<body>
+
+    <script>
+        let mapa = [
+            ['*', '*', '*', '*', '*', '*'],
+            ['', '', '', '', '', '*'],
+            ['*', '*', '*', '*', '*', '*'],
+            ['*', '', '', '', '', ''],
+            ['*', '*', '*', '*', '*', '*']];
+
+        function heaven(mapa, x, y) {
+
+            let mensajeFracaso = "No semos libres";
+
+            if (mapa[x][y] == "*") {
+
+                //vaciamos esa posicion
+                mapa[x][y] = ""
+                //y ahora comprobamos
+
+                //salida
+                if (x == mapa.length - 1 && y == mapa[x].length - 1) {
+                    return "Semos libres";
+                }
+
+                //abajo
+                if (x + 1 < mapa.length) {
+                    if (mapa[x + 1][y] == "*") {
+                        return heaven(mapa, x + 1, y)
+                    }
+                }
+
+                //derecha
+                if (y + 1 < mapa[x].length) {
+                    if (mapa[x][y + 1] == "*") {
+                        return heaven(mapa, x, y + 1)
+                    }
+                }
+
+                //izquierda
+                if (y - 1 >= 0) {
+                    if (mapa[x][y - 1] == "*") {
+                        return heaven(mapa, x, y - 1)
+                    }
+                }
+
+                //arriba
+                if (x - 1 >= 0) {
+                    if (mapa[x - 1][y] == "*") {
+                        return heaven(mapa, x - 1, y)
+                        /*
+                        Si en este punto no ha encontrado ninguna direccion por la que avanzar en el tunel,
+                        se retornara vacio o el mensaje de fracaso que queramos
+                        */
+                    } else {
+                        return mensajeFracaso
+                    }
+                } else {
+                    return mensajeFracaso
+                }
+            }
+        }
+        console.table(mapa);
+        console.log(heaven(mapa, 0, 0));
+    </script>
+</body>
+
+</html>
