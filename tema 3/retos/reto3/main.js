@@ -2,9 +2,10 @@ MAIN();
 
 function MAIN() {
 
-    let notasDWESE = instanciaDeJSON().alumnos.map((alumno) => alumno.notas["DWESE"]) 
+    let notasDWESE = instanciaDeJSON().alumnos.map((alumno) => alumno.notas.DWESE) 
     let sumatorio = notasDWESE.reduce((a, b) => a+b)
     media = sumatorio / notasDWESE.length;
+    
     console.log(`Suma: ${sumatorio}\nMedia: ${media}`);
 }
 
