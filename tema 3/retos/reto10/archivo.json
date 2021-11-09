@@ -1,0 +1,24 @@
+{
+    "vikingos": [
+        {
+            "reino": "Noruega",
+            "reyes": [
+                "Hakon",
+                "Harald",
+                "Ivar",
+                "Olaf",
+                "Bjorn",
+                "Ragnar"
+            ]
+        },
+        {
+            "reino": "Dinamarca",
+            "reyes": [
+                "Frodo",
+                "Hamming",
+                "Angantyr",
+                "Horik"
+            ]
+        }
+    ]
+}
