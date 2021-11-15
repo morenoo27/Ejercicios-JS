@@ -1,5 +1,7 @@
 /**
- * Cosa
+ * Metodo que busca dentro de un div si en todos los nodos que existan,
+ * hay un p que contenga una etiqueta "sup" con valor 2 y cambiarlo a 3.
+ * Pero solo si es 2
  * @param {HTMLElement} objeto etiqueta html
  */
 function busca2(objeto) {
