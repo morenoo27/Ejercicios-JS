@@ -8,19 +8,23 @@ function busca2(objeto) {
 
     lista = objeto.children
 
+    //recoremos la lista
     for (let i = 0; i < lista.length; i++) {
 
+        //filtrado de p
         if (lista[i].nodeName == 'P') {
             
             p = lista[i].children
+            //recorrido del p
             for (let j = 0; j < p.length; j++) {
                 
+                //condicion principal
                 if (p[j].nodeName == "SUP" && p[j].innerHTML == "2") {
                     p[j].innerHTML = "3"
                 } 
             }
         } else {
-
+            //sino se busca en TODOS los nodos siguientes
             busca2(lista[i])
         }
     }
